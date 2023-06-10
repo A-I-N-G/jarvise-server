@@ -1,10 +1,7 @@
 package com.hyundaiite.jarvis.entity;
 
 import com.hyundaiite.jarvis.common.enums.Gender;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +9,8 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Applicant {
 
