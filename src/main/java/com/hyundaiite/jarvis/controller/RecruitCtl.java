@@ -43,7 +43,7 @@ public class RecruitCtl {
                                           @RequestParam(value = "positionName", required = true) String positionName,
                                           @RequestParam(value = "keywordList", required = true) ArrayList<String> keywordList,
                                           @RequestParam(value = "introduction", required = true) String introduction,
-                                          @RequestParam(value = "questionList", required = false) ArrayList<String> questionList) throws Exception {
+                                          @RequestParam(value = "itemList", required = false) ArrayList<String> itemList) throws Exception {
 
         CompanyDto companyDto = CompanyDto.builder()
                 .id(companyId)
@@ -59,7 +59,7 @@ public class RecruitCtl {
                 .companyDto(companyDto)
                 .positionDto(positionDto)
                 .keywordList(keywordList)
-                .questionList(questionList)
+                .itemList(itemList)
                 .build();
 
         companyPositionDto = recruitSvc.saveRecruit(companyPositionDto);

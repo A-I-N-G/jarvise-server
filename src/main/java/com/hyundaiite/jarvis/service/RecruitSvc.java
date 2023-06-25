@@ -1,6 +1,6 @@
 package com.hyundaiite.jarvis.service;
 
-import com.hyundaiite.jarvis.dto.CompanyPositionDto;
+import com.hyundaiite.jarvis.dto.*;
 import com.hyundaiite.jarvis.entity.*;
 import com.hyundaiite.jarvis.repository.*;
 import org.slf4j.Logger;
@@ -46,6 +46,9 @@ public class RecruitSvc {
 
     @Autowired
     ItemRepo itemRepo;
+
+    @Autowired
+    CompanyPositionItemRepo companyPositionItemRepo;
 
     public CompanyPositionDto saveRecruit(CompanyPositionDto companyPositionDto) throws Exception{
 
@@ -108,7 +111,7 @@ public class RecruitSvc {
 
         }
 
-        ArrayList<String> contentList = companyPositionDto.getQuestionList();
+        ArrayList<String> contentList = companyPositionDto.getItemList();
         // 질문 개수만큼 반복
         for(String content : contentList) {
 
@@ -121,9 +124,62 @@ public class RecruitSvc {
                 itemOptional = Optional.of(itemRepo.save(item));
             }
 
+            Optional<CompanyPositionItem> companyPositionItemOptional = companyPositionItemRepo.findByCompanyPositionIdAndItemId(
+                companyPositionOptional.get().getId(), itemOptional.get().getId()
+            );
+            // 회사직무항목이 존재하지 않으면 insert
+            if(companyPositionItemOptional.isEmpty()) {
+                CompanyPositionItem companyPositionItem = CompanyPositionItem.builder()
+                        .companyPosition(companyPositionOptional.get())
+                        .item(itemOptional.get())
+                        .build();
+
+                companyPositionItemOptional = Optional.of(companyPositionItemRepo.save(companyPositionItem));
+            }
+
         }
 
+        // return 세팅
 
+        CompanyDto companyDto = CompanyDto.builder()
+                .id(companyOptional.get().getId())
+                .name(companyOptional.get().getName())
+                .build();
+
+        PositionDto positionDto = PositionDto.builder()
+                .id(positionOptional.get().getId())
+                .name(positionOptional.get().getName())
+                .introduction(positionOptional.get().getIntroduction())
+                .build();
+
+        ArrayList<KeywordDto> keywordDtos = new ArrayList<>();
+        ArrayList<CompanyPositionKeyword> companyPositionKeywords = companyPositionKeywordRepo.findByCompanyPositionId(companyPositionOptional.get().getId());
+        for(CompanyPositionKeyword entity : companyPositionKeywords) {
+            Keyword keyword = entity.getKeyword();
+            KeywordDto keywordDto = KeywordDto.builder()
+                    .id(keyword.getId())
+                    .name(keyword.getName())
+                    .build();
+            keywordDtos.add(keywordDto);
+        }
+
+        ArrayList<ItemDto> itemDtos = new ArrayList<>();
+        ArrayList<CompanyPositionItem> companyPositionItems = companyPositionItemRepo.findByCompanyPositionId(companyPositionOptional.get().getId());
+        for(CompanyPositionItem entity : companyPositionItems) {
+            Item item = entity.getItem();
+            ItemDto itemDto = ItemDto.builder()
+                    .id(item.getId())
+                    .content(item.getContent())
+                    .build();
+            itemDtos.add(itemDto);
+        }
+
+        companyPositionDto = CompanyPositionDto.builder()
+                .companyDto(companyDto)
+                .positionDto(positionDto)
+                .keywordDtoList(keywordDtos)
+                .itemDtoList(itemDtos)
+                .build();
 
         return companyPositionDto;
 

@@ -19,6 +19,10 @@ public class CompanyPositionDto {
 
     private ArrayList<String> keywordList;
 
-    private ArrayList<String> questionList;
+    private ArrayList<String> itemList;
+
+    private ArrayList<KeywordDto> keywordDtoList;
+
+    private ArrayList<ItemDto> itemDtoList;
 
 }
