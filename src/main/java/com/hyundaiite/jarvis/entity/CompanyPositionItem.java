@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import net.bytebuddy.implementation.bind.annotation.Super;
 
 import javax.persistence.*;
 
@@ -14,9 +13,10 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SuperBuilder
-public class CompanyPositionKeyword {
+public class CompanyPositionItem {
+
     @Id
-    @Column(name = "company_position_keyword_id")
+    @Column(name = "compony_position_item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -24,9 +24,8 @@ public class CompanyPositionKeyword {
     @ManyToOne(targetEntity = CompanyPosition.class, fetch = FetchType.LAZY)
     private CompanyPosition companyPosition;
 
-    @JoinColumn(name = "keyword_id", nullable = false)
-    @ManyToOne(targetEntity = Keyword.class, fetch = FetchType.LAZY)
-    private Keyword keyword;
+    @JoinColumn(name = "item_id", nullable = false)
+    @ManyToOne(targetEntity = Item.class, fetch = FetchType.LAZY)
+    private Item item;
 
-    private Double point;
 }
