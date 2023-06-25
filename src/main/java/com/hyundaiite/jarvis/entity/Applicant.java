@@ -1,5 +1,7 @@
 package com.hyundaiite.jarvis.entity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hyundaiite.jarvis.common.enums.Gender;
 import lombok.*;
 
@@ -12,6 +14,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Applicant {
 
     @Id
@@ -22,6 +25,7 @@ public class Applicant {
     @Column(nullable = false)
     private String name;
 
+    @JsonFormat(pattern = "yyyy.MM.dd")
     private Date birthday;
 
     private Gender gender;
