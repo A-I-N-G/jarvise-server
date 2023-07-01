@@ -4,10 +4,7 @@ import com.hyundaiite.jarvis.dto.*;
 import com.hyundaiite.jarvis.service.JobPostingSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * filename    : JobPostingCtl.java
@@ -22,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
+@RequestMapping("/job-postings")
 public class JobPostingCtl {
 
     @Autowired
@@ -34,7 +32,7 @@ public class JobPostingCtl {
      * @return PositionSaveDto
      * @throws Exception
      */
-    @PostMapping("/job-posting")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public CompanyPositionDto saveJobPosting(@RequestBody CompanyPositionDto companyPositionDto) throws Exception {
 
