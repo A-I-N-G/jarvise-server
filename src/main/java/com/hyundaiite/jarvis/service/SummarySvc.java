@@ -46,8 +46,7 @@ public class SummarySvc {
         ArrayList<Summary> summaries = new ArrayList<>();
 
         for(CoverLetterItem coverLetterItem : coverLetterItems) {
-            Long coverLetterItemId = coverLetterItem.getCoverLetter().getId();
-            Summary summary = summaryRepo.findByCoverLetterItemIdAndApplyId(coverLetterItemId, applyId);
+            Summary summary = summaryRepo.findByCoverLetterItem(coverLetterItem);
             summaries.add(summary);
         }
 

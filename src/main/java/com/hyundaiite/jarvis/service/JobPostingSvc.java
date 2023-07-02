@@ -13,7 +13,7 @@ import java.util.Optional;
 
 
 /**
- * filename    : RecruitSvc.java
+ * filename    : JobPostingSvc.java
  * description : 채용 서비스
  * author      : 김건영
  *
@@ -25,7 +25,7 @@ import java.util.Optional;
  */
 
 @Service
-public class RecruitSvc {
+public class JobPostingSvc {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -50,7 +50,7 @@ public class RecruitSvc {
     @Autowired
     CompanyPositionItemRepo companyPositionItemRepo;
 
-    public CompanyPositionDto saveRecruit(CompanyPositionDto companyPositionDto) throws Exception{
+    public CompanyPositionDto saveJobPosting(CompanyPositionDto companyPositionDto) throws Exception{
 
         Optional<Company> companyOptional = companyRepo.findById(companyPositionDto.getCompanyDto().getId());
 
