@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 /**
  * filename    : JobPostingCtl.java
  * description : 채용 컨트롤러
@@ -40,6 +42,15 @@ public class JobPostingCtl {
 
         return companyPositionDto;
 
+    }
+
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    public ArrayList<CompanyPositionKeywordDto> selectJobPostings() throws Exception {
+
+        ArrayList<CompanyPositionKeywordDto> companyPositionDtos = positionSvc.selectJobPostings();
+
+        return companyPositionDtos;
     }
 
 }
