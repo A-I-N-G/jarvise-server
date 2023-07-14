@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -184,4 +185,46 @@ public class JobPostingSvc {
         return companyPositionDto;
 
     }
+
+    public ArrayList<CompanyPositionKeywordDto> selectJobPostings() {
+
+        ArrayList<CompanyPositionKeywordDto> companyPositionKeywordDtos = new ArrayList<>();
+
+        List<CompanyPosition> companyPositions = companyPositionRepo.findAll();
+
+        for(CompanyPosition entity : companyPositions) {
+            CompanyPositionKeywordDto dto = CompanyPositionKeywordDto.builder()
+                    .companPositionId(entity.getId())
+                    .companyId(entity.getCompany().getId())
+                    .positionId(entity.getPosition().getId())
+                    .build();
+            companyPositionKeywordDtos.add(dto);
+        }
+
+        for(CompanyPositionKeywordDto dto : companyPositionKeywordDtos) {
+            Long positionId = dto.getPositionId();
+
+            Optional<Position> position = positionRepo.findById(positionId);
+            if(!position.isEmpty()) {
+                dto.setName(position.get().getName());
+                dto.setIntroduction(position.get().getIntroduction());
+            }
+
+            Long companyPositionId = dto.getCompanPositionId();
+            List<CompanyPositionKeyword> companyPositionKeywords = companyPositionKeywordRepo.findByCompanyPositionId(companyPositionId);
+            ArrayList<String> keywordList = new ArrayList<>();
+            for(CompanyPositionKeyword entity : companyPositionKeywords) {
+                Keyword keyword = entity.getKeyword();
+                keywordList.add(keyword.getName());
+            }
+
+            dto.setKeywordList(keywordList);
+        }
+
+
+
+        return companyPositionKeywordDtos;
+
+    }
+
 }

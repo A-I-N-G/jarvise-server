@@ -9,12 +9,16 @@ import java.util.ArrayList;
 @Builder
 public class CompanyPositionKeywordDto {
 
-    private Long id;
+    private Long companPositionId;
 
-    private CompanyPositionDto companyPositionDto;
+    private Long companyId;
 
-    private KeywordDto keywordDto;
+    private Long positionId;
 
-    private Double point;
+    private String name;
+
+    private String introduction;
+
+    private ArrayList<String> keywordList;
 
 }
