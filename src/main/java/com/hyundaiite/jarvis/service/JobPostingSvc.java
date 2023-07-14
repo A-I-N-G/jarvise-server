@@ -221,8 +221,6 @@ public class JobPostingSvc {
             dto.setKeywordList(keywordList);
         }
 
-
-
         return companyPositionKeywordDtos;
 
     }

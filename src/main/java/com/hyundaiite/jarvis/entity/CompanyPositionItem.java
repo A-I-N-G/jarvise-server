@@ -25,7 +25,7 @@ public class CompanyPositionItem {
     private CompanyPosition companyPosition;
 
     @JoinColumn(name = "item_id", nullable = false)
-    @ManyToOne(targetEntity = Item.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Item.class, fetch = FetchType.EAGER)
     private Item item;
 
 }
