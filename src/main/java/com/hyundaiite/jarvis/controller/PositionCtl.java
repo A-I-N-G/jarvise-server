@@ -41,8 +41,8 @@ public class PositionCtl {
 
     }
 
-    @GetMapping("/")
-    public Position selectPosition(@RequestParam(name = "name") String name) {
+    @GetMapping("/{name}")
+    public Position selectPosition(@PathVariable String name) {
         Position selectedPosition = positionSvc.selectPosition(name);
         return selectedPosition;
     }
