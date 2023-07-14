@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -44,6 +45,13 @@ public class ItemCtl {
     @DeleteMapping("/{id}")
     public Long deleteItem(@PathVariable Long id) {
         return itemSvc.deleteItem(id);
+    }
+
+    @GetMapping("/company/{company_positoin_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ArrayList<Item> selectItemsByCompanyPositionId(@PathVariable Long company_positoin_id) {
+        ArrayList<Item> items = itemSvc.selectItemsByCompanyPositionId(company_positoin_id);
+        return items;
     }
 
     @ExceptionHandler(NoSuchElementException.class)
